@@ -16,8 +16,6 @@ function router(conf, router) {
     });
   });
 
-
-
   return router;
 }
 module.exports = router;

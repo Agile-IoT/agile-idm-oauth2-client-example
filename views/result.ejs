@@ -1,0 +1,22 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Result</title>
+<link href="/static/css/style.css" rel="stylesheet">
+<script type="text/javascript">
+</script>
+</head>
+<body>
+	<div id="content" align="center">
+		<h1>Result for <%= action %> </h1>
+		<div>
+			<% for(var i=0; i<result.length; i++) { %>
+							<label><%= result[i].label %>:</label> <%= result[i].value %>
+			<% } %>
+	</div>
+</div>
+
+</body>
+</html>

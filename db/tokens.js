@@ -13,7 +13,7 @@ exports.create = function (id, token, done) {
   return done(null, tokens[id]);
 };
 
-exports.delete = function(id, done){
+exports.delete = function (id, done) {
   delete tokens[id];
   done();
 }

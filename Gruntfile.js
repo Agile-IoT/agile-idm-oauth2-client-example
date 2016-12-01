@@ -5,7 +5,7 @@ module.exports = function (grunt) {
     pkg: grunt.file.readJSON('package.json'),
     jsbeautifier: {
       modify: {
-        src: ['Gruntfile.js', 'lib/**/*.js', 'db/**.js', 'passport/**.js', 'conf/*.js'],
+        src: ['Gruntfile.js', 'lib/**/*.js', 'db/**.js', 'passport/**.js', 'conf/*.js', "static/*"],
         options: {
           config: '.jsbeautifyrc'
         }

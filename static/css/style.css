@@ -134,3 +134,22 @@ nav ul ul ul li a {
 nav ul ul ul li a:hover {
 	background: white;
 }
+
+
+h1 {
+	font-size: 1.5em;
+	text-align: center;
+  color: DarkBlue;
+}
+
+h2 {
+	font-size: 1em;
+	text-align: center;
+  color: blue;
+}
+
+label {
+  display: inline-block;
+  width: 140px;
+  text-align: right;
+}​

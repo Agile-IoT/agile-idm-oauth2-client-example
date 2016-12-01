@@ -7,6 +7,8 @@ function router(conf) {
   var router = express.Router();
   require('./oauth2-client')(conf,router);
   require('./user_info')(conf,router);
+  require('./users')(conf,router);
+  require('./entities')(conf,router);
 
   return router;
 }
