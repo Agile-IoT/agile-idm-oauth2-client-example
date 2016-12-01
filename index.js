@@ -35,6 +35,9 @@ require('./passport/serializer');
 require('./passport/strategy')(conf);
 app.use("/",require('./routes/')(conf));
 
+//static content such as css, images, etcw
+app.use("/static", express.static(path.join(__dirname, './static')));
+
 
 
 //the login module redirects to the Oauth2 entry point in case the user is not logged in

@@ -1,0 +1,136 @@
+
+
+/* style and color for Idm navigation*/
+#navIdmLi:hover a {
+	color: DarkBlue;
+}
+
+#navIdmA {
+	font-family: sans-serif;
+	font-size: 13px;
+	font-weight: bold;
+	display: block;
+	padding: 13px 40px;
+	color: #00679E;
+	text-decoration: none;
+	display: block;
+}
+
+html,body {
+	height: 99%;
+	width: 100%
+}
+
+#container {
+	width: 100%;
+	background: white;
+	display: table;
+}
+
+
+/*navigation*/
+nav ul ul {
+	display: none;
+}
+
+nav ul li:hover>ul {
+	display: block;
+}
+
+nav ul {
+	background: #F3F3F3;
+	background: linear-gradient(top, #F9F9F9 0%, #EEEEEE 100%);
+	background: -moz-linear-gradient(top, #F9F9F9 0%, #EEEEEE 100%);
+	background: -webkit-linear-gradient(top, #F9F9F9 0%, #EEEEEE 100%);
+	padding: 0 20px;
+	border-radius: 5px;
+	list-style: none;
+	position: relative;
+	display: inline-table;
+	width: 100%;
+	border-right: 1px solid silver;
+	border-left: 1px solid silver;
+	border-top: 1px solid silver;
+	border-bottom: 1px solid silver;
+}
+
+nav ul li {
+	float: left;
+	border-right: 1px solid silver;
+}
+
+nav ul li:last-child {
+	border-right: 1px solid silver;
+}
+
+nav ul li:hover {
+	background: white;
+	background: linear-gradient(top, white 0%, white 40%);
+	background: -moz-linear-gradient(top, white 0%, white 40%);
+	background: -webkit-linear-gradient(top, white 0%, white 40%);
+}
+
+nav ul li:hover a {
+	color: black;
+}
+
+nav ul li a {
+	font-family: sans-serif;
+	font-size: 13px;
+	font-weight: bold;
+	display: block;
+	padding: 13px 40px;
+	color: #00679E;
+	text-decoration: none;
+	display: block;
+}
+
+/*submenu*/
+nav ul ul {
+	background: #F9F9F9;
+	border-radius: 0px;
+	padding: 0;
+	position: absolute;
+	width: 280px;
+}
+
+nav ul ul li {
+	float: none;
+	border-top: 1px solid #F9F9F9;
+	border-bottom: 1px solid #EEEEEE;
+	position: relative;
+}
+
+nav ul ul li a {
+	padding: 13px 40px;
+	color: #fff;
+}
+
+nav ul ul li a:hover {
+	background: white;
+}
+
+/*subsubmenu*/
+nav ul ul ul {
+	background: #F9F9F9;
+	border-radius: 0px;
+	padding: 0;
+	width: 280px;
+	left: 280px;
+	top: -2px;
+}
+
+nav ul ul ul li {
+	float: none;
+	border-bottom: 1px solid #EEEEEE;
+	position: relative;
+}
+
+nav ul ul ul li a {
+	padding: 13px 40px;
+	color: #fff;
+}
+
+nav ul ul ul li a:hover {
+	background: white;
+}

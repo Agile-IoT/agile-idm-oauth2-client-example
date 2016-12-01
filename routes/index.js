@@ -1,7 +1,7 @@
 var passport = require('passport');
 var express = require('express');
 var login = require('connect-ensure-login');
-
+var tokens = require('../db/tokens');
 
 function router(conf) {
   var router = express.Router();
@@ -33,9 +33,13 @@ function router(conf) {
 
 
   router.route('/logout').get( login.ensureLoggedIn('/auth/example/'), function(req,res){
-    req.logout();
-    //give the user the oportunity to login again
-    res.render('index');
+    tokens.delete(req.user.id, function(){
+        req.logout();
+        //give the user the oportunity to login again
+        res.render('index');
+    });
+
+
   });
 
 
