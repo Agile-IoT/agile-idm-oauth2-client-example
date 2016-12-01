@@ -40,19 +40,7 @@ app.use("/static", express.static(path.join(__dirname, './static')));
 
 
 
-//the login module redirects to the Oauth2 entry point in case the user is not logged in
-//this endpoint uses the passport strategy used for oauth2 to show user information
-app.get('/account', login.ensureLoggedIn('/auth/example/'), function (req, res) {
-  console.log(JSON.stringify(req.user));
-  res.send(req.user);
-});
 
-//this endpoint uses the passport strategy used for oauth2 to show user token
-app.get('/token', login.ensureLoggedIn('/auth/example/'), function (req, res) {
-  tokens.find(req.user.id, function(error, token){
-      res.send(token);
-  });
-});
 
 var options = {
   key: fs.readFileSync(conf.tls.key),
