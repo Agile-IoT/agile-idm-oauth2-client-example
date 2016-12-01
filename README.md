@@ -1,5 +1,16 @@
 # AGILE IDM OAauth2 client example
 
+This repository contains examples of minimal node js web applications that use AGILE IDM for different purposes.
+All the branches have an oauth2 client, hence the name of the repository.
+
+#Branches
+
+This repository contains several branches depending on the functionalities that are showcased:
+
+* client: a minimalistic application that uses AGILE IDM as its identity provider, and displays user information  (user information, and token).
+* api-client: an extended version of the client application, but on top it also offers some basic functionality to register entities on identity management.
+
+
 ## Setup
 
 ### Create User
