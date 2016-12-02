@@ -13,6 +13,10 @@ This repository contains several branches depending on the functionalities that 
 
 ## Setup
 
+## Web-UI configuration
+
+This example assumes a certain kind of entity set (defined in the configuration of agile-idm-web-ui). So, please copy the file in agile-ui-conf in the conf directory in agile-idm-web-ui for consistency.
+
 ### Create User
 
 First of all, we need to create the first user with IDM, if it not already created:
