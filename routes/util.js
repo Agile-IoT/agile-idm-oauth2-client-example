@@ -5,3 +5,16 @@ exports.formatOutput = function(object){
   });
   return x;
 };
+
+exports.buildEntityFromAttributes = function(listattributes, listvalues){
+   var obj = {};
+   if(typeof listattributes  === "string" ){
+     obj[listattributes] = listvalues;
+   }
+   else {
+     for(var i =0; i<listattributes.length && i<listvalues.length ; i++){
+       obj[listattributes[i]]=listvalues[i];
+     }     
+   }
+   return obj;
+};
