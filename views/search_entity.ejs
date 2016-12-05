@@ -6,6 +6,18 @@
 <title>Read User</title>
 <link href="/static/css/style.css" rel="stylesheet">
 <script type="text/javascript">
+function addRow(){
+	    var form = document.getElementById("attribute_form");
+			var input1 = document.createElement("input");
+			var input2 = document.createElement("input");
+			 input1.type = "text";
+			 input1.name ="attribute_name";
+			 input2.type = "text";
+			 input2.name ="attribute_value";
+			 form.appendChild(input1);
+			 form.appendChild(input2);
+			 form.appendChild(document.createElement("br"));
+}
 </script>
 </head>
 <body>
@@ -13,11 +25,14 @@
 		<h1>look up entity information</h1>
 		<div>
 		<form method="post">
-
-			 <label>entity attribute:</label>
-			 <input type="text" name="attribute"/><br>
-			 <label>attribute value: </label>
-		   <input type="text" name="value"/><br>
+			<div name = "attribute_info">
+		 	 <br><header><b>Attribute info</b></header><br>
+		 	 <a href="javascript:addRow();" >Add attribute field</a><br>
+		 	 <label>attribute</label>&nbsp;<label>value</label><br>
+		 	 <div id="attribute_form">
+		 	 <input type="text" name="attribute_name"/><input type="text" name="attribute_value"/><br>
+		 		</div>
+		  </div>
 			 <input type="submit" value="Submit" />
 	</form>
 	</div>

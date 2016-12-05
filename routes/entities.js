@@ -160,16 +160,52 @@ function router(conf, idm_conf, router) {
   /*
     looking up entity by attribute
   */
-  router.route('/read_entity').get( login.ensureLoggedIn('/auth/example/'), function (req, res) {
-    res.render("find_entity",{"action":"read"});
-  });
-
   router.route('/search_entity').get( login.ensureLoggedIn('/auth/example/'), function (req, res) {
     res.render("search_entity");
   });
 
+
+
   router.route('/search_entity').post( login.ensureLoggedIn('/auth/example/'), function (req, res) {
-    res.render('result',{"result":[{"label":"stuff","value":"thing"}],"action":"look up entity"});
+
+     //first we read the token
+     tokens.find(req.user.id, function(error, accesstoken){
+      var criteria = util.buildCriteria(req.body.attribute_name, req.body.attribute_value);
+      var action = "look up entity";
+      console.log("looking for criteria "+JSON.stringify(criteria));
+       //build http options
+       var options = {
+         url: url + '/entity/search/',
+         body: JSON.stringify({"criteria":criteria}),
+         headers: {
+           'Authorization': 'bearer ' + accesstoken,
+           'User-Agent': 'user-agent',
+           'Content-type': 'application/json'
+         }
+       };
+       //send request
+       /*
+        the render view expects  an object called result with the format:
+         {"result":[{"label":"label1","value":"value1"},{"label":"label2","value":"value2"},...],"action":"type of action"};
+        so here we build it properly with utils and passing the action type.
+       */
+       request.post(options, function (error, response, body) {
+         if (!error && response.statusCode == 200) {
+           try {
+             var result = JSON.parse(body);
+             res.render('result',{"result":util.formatOutput(result),"action":action});
+
+           } catch (error) {
+             res.render('result',{"result":[{"label":"error","value":"unexpected result from IDM  endpoint "+error}],"action":action});
+           }
+         } else if (!error) {
+             res.render('result',{"result":[{"label":"error","value":"unexpected status code from IDM  endpoint :"+response.statusCode+ "response:"+ response.body}],"action":action});
+         } else {
+           res.render('result',{"result":[{"label":"error","value":"unexpected result from IDM  endpoint "+error}],"action":action});
+         }
+       });
+     });
+
   });
 
 
