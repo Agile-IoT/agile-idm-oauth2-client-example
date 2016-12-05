@@ -5,13 +5,13 @@ module.exports = function (grunt) {
     pkg: grunt.file.readJSON('package.json'),
     jsbeautifier: {
       modify: {
-        src: ['Gruntfile.js', 'lib/**/*.js', 'db/**.js', 'passport/**.js', 'conf/*.js', "static/*"],
+        src: ['Gruntfile.js', 'lib/**/*.js', 'db/**.js', 'passport/**.js', 'conf/*.js', "static/*", "routes/**/*.js"],
         options: {
           config: '.jsbeautifyrc'
         }
       },
       verify: {
-        src: ['Gruntfile.js', 'lib/**/*.js', 'db/**.js', 'passport/**.js', 'tests/**.js', 'example/*.js'],
+        src: ['Gruntfile.js', 'lib/**/*.js', 'db/**.js', 'passport/**.js', 'tests/**.js', 'example/*.js', "routes/**/*.js"],
         options: {
           mode: 'VERIFY_ONLY',
           config: '.jsbeautifyrc'
