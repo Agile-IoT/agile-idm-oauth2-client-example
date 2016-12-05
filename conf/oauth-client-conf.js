@@ -7,12 +7,17 @@ module.exports = {
     callbackURL: "http://localhost:3002/auth/example/callback",
     userInfoUrl: 'http://localhost:3000/oauth2/api/userinfo'
   },
-  "site":{
+  "site": {
     "tls": {
       "key": "./certs/server.key",
       "cert": "./certs/server.crt"
     },
     "https_port": 1444,
     "http_port": 3002
+  },
+  "idm": {
+    "host": "localhost",
+    "port": 3000,
+    "protocol": "http"
   }
 }

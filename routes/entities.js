@@ -3,7 +3,7 @@ var express = require('express');
 var login = require('connect-ensure-login');
 var tokens = require('../db/tokens');
 
-function router(conf, router) {
+function router(conf, idm_conf, router) {
 
   /*
     reading entity

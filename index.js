@@ -33,7 +33,7 @@ app.use(passport.session());
 
 require('./passport/serializer');
 require('./passport/strategy')(conf.oauth2);
-app.use("/",require('./routes/')(conf.oauth2));
+app.use("/",require('./routes/')(conf.oauth2,conf.idm));
 
 //static content such as css, images, etcw
 app.use("/static", express.static(path.join(__dirname, './static')));
