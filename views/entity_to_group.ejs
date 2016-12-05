@@ -1,0 +1,32 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Add Entity to Group</title>
+<link href="/static/css/style.css" rel="stylesheet">
+<script type="text/javascript">
+</script>
+</head>
+<body>
+	<div id="content" align="center">
+		<h1> <%= action %>   entity to group</h1>
+		<div>
+		<form method="post">
+			<label>group owner: </label>
+			<input type="text" name="owner"/><br>
+			<label>owner athentication type: </label>
+			<input type="text" name="auth_type"/><br>
+			 <label>group name: </label>
+		   <input type="text" name="group_name"/><br>
+			<label>entity id: </label>
+ 			<input type="text" name="entity_id"/><br>
+ 			<label>entity type: </label>
+ 			<input type="text" name="entity_type"/><br>
+			 <input type="submit" value="Submit" />
+	</form>
+	</div>
+</div>
+
+</body>
+</html>
