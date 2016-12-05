@@ -32,8 +32,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 require('./passport/serializer');
-require('./passport/strategy')(conf);
-app.use("/",require('./routes/')(conf));
+require('./passport/strategy')(conf.oauth2);
+app.use("/",require('./routes/')(conf.oauth2));
 
 //static content such as css, images, etcw
 app.use("/static", express.static(path.join(__dirname, './static')));
@@ -43,14 +43,14 @@ app.use("/static", express.static(path.join(__dirname, './static')));
 
 
 var options = {
-  key: fs.readFileSync(conf.tls.key),
-  cert: fs.readFileSync(conf.tls.cert)
+  key: fs.readFileSync(conf.site.tls.key),
+  cert: fs.readFileSync(conf.site.tls.cert)
 };
-app.listen(conf.http_port);
-https.createServer(options, app).listen(conf.https_port);
+app.listen(conf.site.http_port);
+https.createServer(options, app).listen(conf.site.https_port);
 
-console.log("listening on port "+conf.http_port+ " for http ");
-console.log("listening on port "+conf.https_port+ " for https ");
+console.log("listening on port "+conf.site.http_port+ " for http ");
+console.log("listening on port "+conf.site.https_port+ " for https ");
 
 
 module.exports = app;
