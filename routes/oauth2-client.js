@@ -9,11 +9,13 @@ function router(conf, router) {
   */
   router.route('/auth/example').get(passport.authenticate('oauth2'));
 
-  router.route('/auth/example/callback').get(passport.authenticate('oauth2', { failureRedirect: '/login' }),
-  function(req, res) {
-    res.render('authenticated');
-    //res.redirect('/');
-  });
+  router.route('/auth/example/callback').get(passport.authenticate('oauth2', {
+      failureRedirect: '/login'
+    }),
+    function (req, res) {
+      res.render('authenticated');
+      //res.redirect('/');
+    });
 
   /* index */
   //this route uses the login middleware to ensure there is a user logged in, and then shows the authenticated website
@@ -26,21 +28,18 @@ function router(conf, router) {
   //});
   //
 
-  router.route('/').get( login.ensureLoggedIn('/auth/example/'), function(req,res){
+  router.route('/').get(login.ensureLoggedIn('/auth/example/'), function (req, res) {
     res.render("authenticated");
   });
 
-
-  router.route('/logout').get( login.ensureLoggedIn('/auth/example/'), function(req,res){
-    tokens.delete(req.user.id, function(){
-        req.logout();
-        //give the user the oportunity to login again
-        res.render('index');
+  router.route('/logout').get(login.ensureLoggedIn('/auth/example/'), function (req, res) {
+    tokens.delete(req.user.id, function () {
+      req.logout();
+      //give the user the oportunity to login again
+      res.render('index');
     });
 
-
   });
-
 
   return router;
 }

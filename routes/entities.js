@@ -4,29 +4,31 @@ var login = require('connect-ensure-login');
 var tokens = require('../db/tokens');
 var querystring = require('querystring');
 var request = require('request');
-var util = require ('./util');
+var util = require('./util');
 
 function router(conf, idm_conf, router) {
 
-  var url = idm_conf.protocol + "://" + idm_conf.host + ":" +idm_conf.port + "/api/v1"
+  var url = idm_conf.protocol + "://" + idm_conf.host + ":" + idm_conf.port + "/api/v1"
 
   /*
     reading entity
   */
-  router.route('/read_entity').get( login.ensureLoggedIn('/auth/example/'), function (req, res) {
-    res.render("find_entity",{"action":"read"});
+  router.route('/read_entity').get(login.ensureLoggedIn('/auth/example/'), function (req, res) {
+    res.render("find_entity", {
+      "action": "read"
+    });
   });
 
-  router.route('/read_entity').post( login.ensureLoggedIn('/auth/example/'), function (req, res) {
+  router.route('/read_entity').post(login.ensureLoggedIn('/auth/example/'), function (req, res) {
     var action = "read entity";
     //first we read the token
-    tokens.find(req.user.id, function(error, accesstoken){
+    tokens.find(req.user.id, function (error, accesstoken) {
       var entity_type = req.body.entity_type;
-      var entity_id =  req.body.entity_id;
+      var entity_id = req.body.entity_id;
 
       //build http options
       var options = {
-        url: url + '/entity/'+entity_type+'/'+entity_id,
+        url: url + '/entity/' + entity_type + '/' + entity_id,
         headers: {
           'Authorization': 'bearer ' + accesstoken,
           'User-Agent': 'user-agent',
@@ -43,67 +45,109 @@ function router(conf, idm_conf, router) {
         if (!error && response.statusCode == 200) {
           try {
             var result = JSON.parse(body);
-            res.render('result',{"result":util.formatOutput(result),"action":action});
+            res.render('result', {
+              "result": util.formatOutput(result),
+              "action": action
+            });
 
           } catch (error) {
-            res.render('result',{"result":[{"label":"error","value":"unexpected result from IDM  endpoint "+error}],"action":action});
+            res.render('result', {
+              "result": [{
+                "label": "error",
+                "value": "unexpected result from IDM  endpoint " + error
+              }],
+              "action": action
+            });
           }
         } else if (!error) {
-            res.render('result',{"result":[{"label":"error","value":"unexpected status code from IDM  endpoint :"+response.statusCode+ "error:"+  response.body}],"action":action});
+          res.render('result', {
+            "result": [{
+              "label": "error",
+              "value": "unexpected status code from IDM  endpoint :" + response.statusCode + "error:" + response.body
+            }],
+            "action": action
+          });
         } else {
-          res.render('result',{"result":[{"label":"error","value":"unexpected result from IDM  endpoint "+error}],"action":action});
+          res.render('result', {
+            "result": [{
+              "label": "error",
+              "value": "unexpected result from IDM  endpoint " + error
+            }],
+            "action": action
+          });
         }
       });
     });
-});
+  });
 
   /*
     creating entity
   */
-  router.route('/create_entity').get( login.ensureLoggedIn('/auth/example/'), function (req, res) {
+  router.route('/create_entity').get(login.ensureLoggedIn('/auth/example/'), function (req, res) {
     res.render("create_entity");
   });
 
-  router.route('/create_entity').post( login.ensureLoggedIn('/auth/example/'), function (req, res) {
-     //first we read the token
-     tokens.find(req.user.id, function(error, accesstoken){
-       var entity = util.buildEntityFromAttributes(req.body.attribute_name, req.body.attribute_value);
-       var entity_type = req.body.entity_type;
-       var entity_id =  req.body.entity_id;
+  router.route('/create_entity').post(login.ensureLoggedIn('/auth/example/'), function (req, res) {
+    //first we read the token
+    tokens.find(req.user.id, function (error, accesstoken) {
+      var entity = util.buildEntityFromAttributes(req.body.attribute_name, req.body.attribute_value);
+      var entity_type = req.body.entity_type;
+      var entity_id = req.body.entity_id;
       var action = "create entity";
-      console.log("registering entity "+JSON.stringify(entity));
-       //build http options
-       var options = {
-         url: url + '/entity/'+entity_type+'/'+entity_id,
-         body: JSON.stringify(entity),
-         headers: {
-           'Authorization': 'bearer ' + accesstoken,
-           'User-Agent': 'user-agent',
-           'Content-type': 'application/json'
-         }
-       };
-       //send request
-       /*
-        the render view expects  an object called result with the format:
-         {"result":[{"label":"label1","value":"value1"},{"label":"label2","value":"value2"},...],"action":"type of action"};
-        so here we build it properly with utils and passing the action type.
-       */
-       request.post(options, function (error, response, body) {
-         if (!error && response.statusCode == 200) {
-           try {
-             var result = JSON.parse(body);
-             res.render('result',{"result":util.formatOutput(result),"action":action});
+      console.log("registering entity " + JSON.stringify(entity));
+      //build http options
+      var options = {
+        url: url + '/entity/' + entity_type + '/' + entity_id,
+        body: JSON.stringify(entity),
+        headers: {
+          'Authorization': 'bearer ' + accesstoken,
+          'User-Agent': 'user-agent',
+          'Content-type': 'application/json'
+        }
+      };
+      //send request
+      /*
+       the render view expects  an object called result with the format:
+        {"result":[{"label":"label1","value":"value1"},{"label":"label2","value":"value2"},...],"action":"type of action"};
+       so here we build it properly with utils and passing the action type.
+      */
+      request.post(options, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+          try {
+            var result = JSON.parse(body);
+            res.render('result', {
+              "result": util.formatOutput(result),
+              "action": action
+            });
 
-           } catch (error) {
-             res.render('result',{"result":[{"label":"error","value":"unexpected result from IDM  endpoint "+error}],"action":action});
-           }
-         } else if (!error) {
-             res.render('result',{"result":[{"label":"error","value":"unexpected status code from IDM  endpoint :"+response.statusCode+ "response:"+ response.body}],"action":action});
-         } else {
-           res.render('result',{"result":[{"label":"error","value":"unexpected result from IDM  endpoint "+error}],"action":action});
-         }
-       });
-     });
+          } catch (error) {
+            res.render('result', {
+              "result": [{
+                "label": "error",
+                "value": "unexpected result from IDM  endpoint " + error
+              }],
+              "action": action
+            });
+          }
+        } else if (!error) {
+          res.render('result', {
+            "result": [{
+              "label": "error",
+              "value": "unexpected status code from IDM  endpoint :" + response.statusCode + "response:" + response.body
+            }],
+            "action": action
+          });
+        } else {
+          res.render('result', {
+            "result": [{
+              "label": "error",
+              "value": "unexpected result from IDM  endpoint " + error
+            }],
+            "action": action
+          });
+        }
+      });
+    });
 
   });
 
@@ -114,20 +158,22 @@ function router(conf, idm_conf, router) {
   /*
     deleting entity
   */
-  router.route('/delete_entity').get( login.ensureLoggedIn('/auth/example/'), function (req, res) {
-    res.render("find_entity",{"action":"delete"});
+  router.route('/delete_entity').get(login.ensureLoggedIn('/auth/example/'), function (req, res) {
+    res.render("find_entity", {
+      "action": "delete"
+    });
   });
 
-  router.route('/delete_entity').post( login.ensureLoggedIn('/auth/example/'), function (req, res) {
+  router.route('/delete_entity').post(login.ensureLoggedIn('/auth/example/'), function (req, res) {
     var action = "delete entity";
     //first we read the token
-    tokens.find(req.user.id, function(error, accesstoken){
+    tokens.find(req.user.id, function (error, accesstoken) {
       var entity_type = req.body.entity_type;
-      var entity_id =  req.body.entity_id;
+      var entity_id = req.body.entity_id;
 
       //build http options
       var options = {
-        url: url + '/entity/'+entity_type+'/'+entity_id,
+        url: url + '/entity/' + entity_type + '/' + entity_id,
         headers: {
           'Authorization': 'bearer ' + accesstoken,
           'User-Agent': 'user-agent',
@@ -143,15 +189,39 @@ function router(conf, idm_conf, router) {
       request.delete(options, function (error, response, body) {
         if (!error && response.statusCode == 200) {
           try {
-            res.render('result',{"result":[{"value":"entity deleted successfully","label":"result"}],"action":action});
+            res.render('result', {
+              "result": [{
+                "value": "entity deleted successfully",
+                "label": "result"
+              }],
+              "action": action
+            });
 
           } catch (error) {
-            res.render('result',{"result":[{"label":"error","value":"unexpected result from IDM  endpoint "+error}],"action":action});
+            res.render('result', {
+              "result": [{
+                "label": "error",
+                "value": "unexpected result from IDM  endpoint " + error
+              }],
+              "action": action
+            });
           }
         } else if (!error) {
-            res.render('result',{"result":[{"label":"error","value":"unexpected status code from IDM  endpoint :"+response.statusCode+ "error:"+  response.body}],"action":action});
+          res.render('result', {
+            "result": [{
+              "label": "error",
+              "value": "unexpected status code from IDM  endpoint :" + response.statusCode + "error:" + response.body
+            }],
+            "action": action
+          });
         } else {
-          res.render('result',{"result":[{"label":"error","value":"unexpected result from IDM  endpoint "+error}],"action":action});
+          res.render('result', {
+            "result": [{
+              "label": "error",
+              "value": "unexpected result from IDM  endpoint " + error
+            }],
+            "action": action
+          });
         }
       });
     });
@@ -160,54 +230,74 @@ function router(conf, idm_conf, router) {
   /*
     looking up entity by attribute
   */
-  router.route('/search_entity').get( login.ensureLoggedIn('/auth/example/'), function (req, res) {
+  router.route('/search_entity').get(login.ensureLoggedIn('/auth/example/'), function (req, res) {
     res.render("search_entity");
   });
 
+  router.route('/search_entity').post(login.ensureLoggedIn('/auth/example/'), function (req, res) {
 
-
-  router.route('/search_entity').post( login.ensureLoggedIn('/auth/example/'), function (req, res) {
-
-     //first we read the token
-     tokens.find(req.user.id, function(error, accesstoken){
+    //first we read the token
+    tokens.find(req.user.id, function (error, accesstoken) {
       var criteria = util.buildCriteria(req.body.attribute_name, req.body.attribute_value);
       var action = "look up entity";
-      console.log("looking for criteria "+JSON.stringify(criteria));
-       //build http options
-       var options = {
-         url: url + '/entity/search/',
-         body: JSON.stringify({"criteria":criteria}),
-         headers: {
-           'Authorization': 'bearer ' + accesstoken,
-           'User-Agent': 'user-agent',
-           'Content-type': 'application/json'
-         }
-       };
-       //send request
-       /*
-        the render view expects  an object called result with the format:
-         {"result":[{"label":"label1","value":"value1"},{"label":"label2","value":"value2"},...],"action":"type of action"};
-        so here we build it properly with utils and passing the action type.
-       */
-       request.post(options, function (error, response, body) {
-         if (!error && response.statusCode == 200) {
-           try {
-             var result = JSON.parse(body);
-             res.render('result',{"result":util.formatOutput(result),"action":action});
+      console.log("looking for criteria " + JSON.stringify(criteria));
+      //build http options
+      var options = {
+        url: url + '/entity/search/',
+        body: JSON.stringify({
+          "criteria": criteria
+        }),
+        headers: {
+          'Authorization': 'bearer ' + accesstoken,
+          'User-Agent': 'user-agent',
+          'Content-type': 'application/json'
+        }
+      };
+      //send request
+      /*
+       the render view expects  an object called result with the format:
+        {"result":[{"label":"label1","value":"value1"},{"label":"label2","value":"value2"},...],"action":"type of action"};
+       so here we build it properly with utils and passing the action type.
+      */
+      request.post(options, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+          try {
+            var result = JSON.parse(body);
+            res.render('result', {
+              "result": util.formatOutput(result),
+              "action": action
+            });
 
-           } catch (error) {
-             res.render('result',{"result":[{"label":"error","value":"unexpected result from IDM  endpoint "+error}],"action":action});
-           }
-         } else if (!error) {
-             res.render('result',{"result":[{"label":"error","value":"unexpected status code from IDM  endpoint :"+response.statusCode+ "response:"+ response.body}],"action":action});
-         } else {
-           res.render('result',{"result":[{"label":"error","value":"unexpected result from IDM  endpoint "+error}],"action":action});
-         }
-       });
-     });
+          } catch (error) {
+            res.render('result', {
+              "result": [{
+                "label": "error",
+                "value": "unexpected result from IDM  endpoint " + error
+              }],
+              "action": action
+            });
+          }
+        } else if (!error) {
+          res.render('result', {
+            "result": [{
+              "label": "error",
+              "value": "unexpected status code from IDM  endpoint :" + response.statusCode + "response:" + response.body
+            }],
+            "action": action
+          });
+        } else {
+          res.render('result', {
+            "result": [{
+              "label": "error",
+              "value": "unexpected result from IDM  endpoint " + error
+            }],
+            "action": action
+          });
+        }
+      });
+    });
 
   });
-
 
   return router;
 }
