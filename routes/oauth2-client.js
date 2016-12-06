@@ -13,7 +13,7 @@ function router(conf, router) {
       failureRedirect: '/login'
     }),
     function (req, res) {
-      res.render('authenticated');
+      res.redirect('/');
       //res.redirect('/');
     });
 
