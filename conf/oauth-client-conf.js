@@ -12,7 +12,7 @@ module.exports = {
       "key": "./certs/server.key",
       "cert": "./certs/server.crt"
     },
-    "https_port": 1444,
+    "https_port": 1445,
     "http_port": 3002
   }
 }
