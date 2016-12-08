@@ -66,7 +66,12 @@ The code for the oauth2 client example is structured in the following folders:
 * **views**: includes the ejs views, which comprise a basic html template to represent the information to the user in HTML.
 * **web-ui-conf**: this folder contains a configuration file that should be placed in AGILE IDM, in order to be able to register entities as shown in the tutorial video (URL TBD).
 
-### Additional Files
+Also the root folder contains the following files:
+* index.js: **main** file to be run, to try the example.
+* package.json: used to specify project name, url and dependencies
+* Gruntfile.js: file used to format and verify code structure. Also it checks for jshint errors in javascript
+* .jsbeautify and .jshintrc: configurations for beautify and jshint used by the grunt file
+
 
 
 
