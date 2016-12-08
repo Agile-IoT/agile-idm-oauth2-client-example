@@ -96,7 +96,6 @@ Also the root folder contains the following files:
 * Gruntfile.js: file used to format and verify code structure. Also it checks for jshint errors in javascript
 * .jsbeautify and .jshintrc: configurations for beautify and jshint used by the grunt file
 
-
-
+To print debugging information of IDM, please have a look at the agile-idm-web-ui here https://github.com/Agile-IoT/agile-idm-web-ui/blob/master/README.md
 
 
