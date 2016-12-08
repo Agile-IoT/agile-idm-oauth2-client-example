@@ -76,8 +76,6 @@ In the case of the more complex example (api-client branch), there will be subse
 
 ## Project Structure
 
-### Main Code Structure
-
 The code for the oauth2 client example is structured in the following folders:
 * **certs**: self-signed certificates used for TLS connection (for security reasons proper certificates should be used)
 * **conf**: configuration of the current application. This includes the following configurations:
