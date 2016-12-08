@@ -48,7 +48,9 @@ Run this example by executing this in the root of the current project:
   node index.js
 ```
 
-## Code Structure
+## Project Structure
+
+### Main Code Structure
 
 The code for the oauth2 client example is structured in the following folders:
 * **certs**: self-signed certificates used for TLS connection (for security reasons proper certificates should be used)
@@ -63,4 +65,8 @@ The code for the oauth2 client example is structured in the following folders:
 * **routes**: this folder includes the proper express code to mount the routes for the oauth2 authorization code flow, the routes to revtrieve user information. And optionally, in the case of the more complex example that also consumes the REST Entity API of AGILE IDM, it includes the routes required to receive requests from the browser. In turn these files (called groups, entities, and users denpending on their particular responsibilities) take care of executing the REST calls to AGILE IDM, and to render the proper views to the user in HTML form.
 * **views**: includes the ejs views, which comprise a basic html template to represent the information to the user in HTML.
 * **web-ui-conf**: this folder contains a configuration file that should be placed in AGILE IDM, in order to be able to register entities as shown in the tutorial video (URL TBD).
+
+### Additional Files
+
+
 
