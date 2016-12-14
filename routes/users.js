@@ -94,8 +94,12 @@ function router(conf, idm_conf, router) {
     tokens.find(req.user.id, function (error, accesstoken) {
       var user = {
         "auth_type": req.body.auth_type,
-        "user_name": req.body.user_name
+        "user_name": req.body.user_name,
+        "role": req.body.role
       };
+      if(req.body.password){
+        user.password = req.body.password;
+      }
       //build http options
       var options = {
         url: url + '/user/',
