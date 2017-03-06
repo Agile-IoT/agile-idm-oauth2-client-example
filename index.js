@@ -23,6 +23,8 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(methodOverride());
+//Be careful with this keyboard cat... it is there just to make the example fast.
+//but you should UPDATE THIS!! you have been warned :)
 app.use(session({
   secret: 'keyboard cat',
   resave: false,

@@ -97,7 +97,7 @@ function router(conf, idm_conf, router) {
         "user_name": req.body.user_name,
         "role": req.body.role
       };
-      if(req.body.password){
+      if (req.body.password) {
         user.password = req.body.password;
       }
       //build http options
