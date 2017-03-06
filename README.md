@@ -30,6 +30,12 @@ For this, execute the following command in the scripts folder of agile-idm-web-u
 ```
 node createClient.js --client=MyAgileClient2 --name="My first example as IDM client" --secret="Ultrasecretstuff" --owner=bob --auth_type=agile-local --uri=http://localhost:3002/auth/example/callback
 ```
+Alternatively if you have already logged in with a token and just want to use the rest api, the following line should work assuming you place the token on the TOKEN variable in a shell.
+```
+
+curl -X POST -H "Content-type: application/json" -H "Authorization: bearer $TOKEN" -d '{"name":"MyAgileClient2","clientSecret":"theclientsecret", "redirectURI": "http://agilegw.local:3002/auth/example/callback"}' 'http://agilegw.local:3000/api/v1/entity/client/MyAgileClient2'
+```
+
 
 ### RUN Identity Management
 
