@@ -1,7 +1,8 @@
 # AGILE IDM OAauth2 client example
 
+
 This repository contains examples of minimal node js web applications that use AGILE IDM for different purposes.
-All the branches have an oauth2 client, hence the name of the repository.
+All the branches have an oauth2 client, hence the name of the repository. Also, this application is just an example and not meant for use in production systems. It does not include proper validation input when executing calls to IDM, and therefore may be vulnerable to Web attacks. 
 
 #Branches
 
