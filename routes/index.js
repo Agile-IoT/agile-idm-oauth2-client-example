@@ -10,6 +10,7 @@ function router(conf, idm_conf) {
   require('./users')(conf, idm_conf, router);
   require('./entities')(conf, idm_conf, router);
   require('./groups')(conf, idm_conf, router);
+  require('./list')(conf, idm_conf, router);
 
   return router;
 }
